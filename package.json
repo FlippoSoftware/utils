@@ -39,6 +39,8 @@
     "@floating-ui/react": "catalog:"
   },
   "devDependencies": {
+    "@biomejs/biome": "catalog:",
+    "@flippo/biome": "workspace:*",
     "@flippo/eslint": "workspace:*",
     "@flippo/tsconfig": "workspace:*",
     "@types/node": "catalog:",
