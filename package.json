@@ -41,15 +41,10 @@
   "devDependencies": {
     "@biomejs/biome": "catalog:",
     "@flippo/biome": "workspace:*",
-    "@flippo/eslint": "workspace:*",
     "@flippo/tsconfig": "workspace:*",
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
-    "eslint": "catalog:",
-    "eslint-plugin-format": "catalog:",
-    "eslint-plugin-react-hooks": "catalog:",
-    "eslint-plugin-react-refresh": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
     "typescript": "catalog:"
