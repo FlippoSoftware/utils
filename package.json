@@ -3,7 +3,6 @@
   "type": "module",
   "version": "1.0.0",
   "source": "./src/index.ts",
-  "private": true,
   "packageManager": "pnpm@10.7.0",
   "description": "",
   "author": "",
@@ -26,7 +25,8 @@
           "default": "./dist/index.js"
         }
       }
-    }
+    },
+    "access": "public"
   },
   "files": [
     "README.md",
@@ -36,17 +36,26 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "@floating-ui/react": "catalog:"
+    "@floating-ui/react": "^0.27.16"
   },
   "devDependencies": {
-    "@biomejs/biome": "catalog:",
-    "@flippo/biome": "workspace:*",
-    "@flippo/tsconfig": "workspace:*",
-    "@types/node": "catalog:",
-    "@types/react": "catalog:",
-    "@types/react-dom": "catalog:",
-    "react": "catalog:",
-    "react-dom": "catalog:",
-    "typescript": "catalog:"
-  }
+    "@biomejs/biome": "^2.5.11",
+    "@flippo/biome": "^1.0.0",
+    "@flippo/tsconfig": "^1.0.0",
+    "@types/node": "^22.18.0",
+    "@types/react": "^19.0.12",
+    "@types/react-dom": "^19.0.4",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "typescript": "^5.9.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FlippoSoftware/utils.git"
+  },
+  "homepage": "https://github.com/FlippoSoftware/utils#readme",
+  "bugs": {
+    "url": "https://github.com/FlippoSoftware/utils/issues"
+  },
+  "sideEffects": false
 }
