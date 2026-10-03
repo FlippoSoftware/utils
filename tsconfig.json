@@ -1,8 +1,10 @@
 {
-  "extends": "@flippo/tsconfig",
-  "compilerOptions": {
-    "jsx": "react"
-  },
-  "include": ["src", "eslint.config.js"],
-  "exclude": ["node_modules"]
+    "extends": "@flippo-software/tsconfig",
+    "compilerOptions": {
+        "jsx": "react",
+        "lib": ["dom", "ES2024"],
+        "types": ["node"]
+    },
+    "include": ["src", "tsdown.config.ts", "scripts"],
+    "exclude": ["node_modules"]
 }

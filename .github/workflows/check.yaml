@@ -1,0 +1,27 @@
+name: Check
+
+on:
+    pull_request:
+        branches:
+            - main
+
+jobs:
+    format-and-lint:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Install pnpm
+              uses: pnpm/action-setup@v2
+
+            - name: Install Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version-file: ".nvmrc"
+                  cache: "pnpm"
+            
+            - name: Install dependencies
+              run: pnpm install --frozen-lockfile
+
+            - name: Check formatting & linting
+              run: pnpm lint:check
