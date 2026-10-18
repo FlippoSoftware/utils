@@ -8,10 +8,10 @@ export class EventEmitter<T extends EventMap> {
     }
 
     /**
-     * Регистрирует подписчика на событие.
-     * @param event Имя события.
-     * @param listener Функция-обработчик.
-     * @returns Функция для отписки данного подписчика.
+     * Subscribes a listener to an event.
+     * @param event - The event name.
+     * @param listener - The handler.
+     * @returns A function that unsubscribes this listener.
      */
     public on<K extends keyof T>(event: K, listener: (data: T[K]) => void): () => void {
         if (!this.map.has(event)) {
@@ -19,44 +19,44 @@ export class EventEmitter<T extends EventMap> {
         }
 
         const listeners = this.map.get(event)!;
-        // Безопасно приводим тип, так как `emit` будет передавать правильные данные.
+        // The cast is safe: `emit` passes the data of this event.
         listeners.add(listener as (data: unknown) => void);
 
-        // Возвращаем функцию-деструктор для удобной отписки.
+        // The cleanup function unsubscribes the listener.
         return () => this.off(event, listener);
     }
 
     /**
-     * Удаляет подписчика с события.
-     * @param event Имя события.
-     * @param listener Функция-обработчик, которую нужно удалить.
+     * Unsubscribes a listener from an event.
+     * @param event - The event name.
+     * @param listener - The handler to remove.
      */
     public off<K extends keyof T>(event: K, listener: (data: T[K]) => void): void {
         this.map.get(event)?.delete(listener as (data: unknown) => void);
     }
 
     /**
-     * Генерирует событие, вызывая всех его подписчиков.
-     * @param event Имя события.
-     * @param data Данные, которые будут переданы подписчикам.
+     * Emits an event: calls all of its listeners.
+     * @param event - The event name.
+     * @param data - The data passed to the listeners.
      */
     public emit<K extends keyof T>(event: K, data: T[K]): void {
         this.map.get(event)?.forEach((listener) => {
-            // `data` здесь имеет тип T[K], а `listener` ожидает `unknown`.
-            // Любой тип можно передать в `unknown`, так что это безопасно.
+            // `data` is of type T[K] and `listener` takes `unknown`:
+            // any type can be passed as `unknown`, so this is safe.
             listener(data);
         });
     }
 
     /**
-     * Регистрирует одноразового подписчика. Он будет удален после первого же вызова.
-     * @param event Имя события.
-     * @param listener Функция-обработчик.
-     * @returns Функция для отписки данного подписчика до его вызова.
+     * Subscribes a one-time listener: it is removed after its first call.
+     * @param event - The event name.
+     * @param listener - The handler.
+     * @returns A function that unsubscribes this listener before it is called.
      */
     public once<K extends keyof T>(event: K, listener: (data: T[K]) => void): () => void {
         const removeListener = this.on(event, (data) => {
-            // Сначала отписываемся, потом вызываем оригинальный listener.
+            // Unsubscribe first, then call the original listener.
             removeListener();
             listener(data);
         });
@@ -64,8 +64,8 @@ export class EventEmitter<T extends EventMap> {
     }
 
     /**
-     * Удаляет всех подписчиков для указанного события, или для всех событий, если имя не указано.
-     * @param event (Опционально) Имя события.
+     * Removes all the listeners of an event, or of every event when no name is given.
+     * @param event - The event name (optional).
      */
     public removeAllListeners<K extends keyof T>(event?: K): void {
         if (event) {
