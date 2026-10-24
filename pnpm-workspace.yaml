@@ -1,0 +1,4 @@
+# pnpm settings of the package (not a workspace).
+allowBuilds:
+    # Its postinstall installs the git hooks; the `prepare` script already does it.
+    simple-git-hooks: false
