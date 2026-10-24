@@ -36,13 +36,16 @@
         "typecheck": "tsc --noEmit",
         "lint:check": "biome check",
         "lint:fix": "biome lint --fix && biome format --fix",
-        "build": "tsdown"
+        "build": "tsdown",
+        "prepare": "simple-git-hooks",
+        "hooks:install": "simple-git-hooks"
     },
     "devDependencies": {
         "@biomejs/biome": "^2.5.13",
         "@flippo-software/biome": "^1.0.0",
         "@flippo-software/tsconfig": "^1.0.0",
         "@types/node": "^22.18.0",
+        "simple-git-hooks": "2.14.0",
         "tsdown": "^0.23.0",
         "typescript": "^7.0.2"
     },
@@ -118,5 +121,11 @@
             "require": "./dist/set.cjs"
         },
         "./package.json": "./package.json"
+    },
+    "simple-git-hooks": {
+        "pre-commit": "test \"$(git symbolic-ref --quiet HEAD)\" != refs/heads/main || { echo \"Direct commits to main are not allowed. Create a feature branch.\" >&2; exit 1; }",
+        "pre-merge-commit": "test \"$(git symbolic-ref --quiet HEAD)\" != refs/heads/main || { echo \"Local merge commits on main are not allowed. Open a pull request.\" >&2; exit 1; }",
+        "pre-push": "while read -r local_ref local_sha remote_ref remote_sha; do if [ \"$remote_ref\" = refs/heads/main ]; then echo \"Direct pushes to main are not allowed. Open a pull request.\" >&2; exit 1; fi; done",
+        "preserveUnused": true
     }
 }
